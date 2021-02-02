@@ -6,20 +6,11 @@
     <table>
       <thead>
         <tr>
-          <th>
-            Nazwa
-          </th>
-          <th>
-            Email
-          </th>
-          <th>
-            Nazwa firmy
-          </th>
-          <th>
-            Miasto
-          </th>
-          <th>
-            Strona
+          <th
+              v-for="column in columns"
+              :key="column"
+          >
+            {{ column }}
           </th>
         </tr>
       </thead>
@@ -28,20 +19,11 @@
             v-for="user in users"
             :key="user.id"
         >
-          <td>
-            {{ user.name }}
-          </td>
-          <td>
-            {{ user.email }}
-          </td>
-          <td>
-            {{ user.company.name }}
-          </td>
-          <td>
-            {{ user.address.city }}
-          </td>
-          <td>
-            {{ user.website }}
+          <td
+              v-for="column in columns"
+              :key="column + user.id"
+          >
+            {{ user.getValue(column) }}
           </td>
         </tr>
       </tbody>
@@ -58,6 +40,16 @@ class User {
     this.website = data?.website || '';
     this.address = new Address(data?.address || '');
     this.company = new Company(data?.company || '');
+  }
+
+  getValue (key) {
+    const keyArray = key.split('.');
+
+    if (keyArray.length > 1) {
+      return this[keyArray[0]][keyArray[1]];
+    }
+
+    return this.email;
   }
 }
 
@@ -91,11 +83,16 @@ export default {
     pagination: {
       type: Boolean,
       default: false
+    },
+    selectedColumns: {
+      type: String,
+      default: 'email,name,website,address.city,company.name'
     }
   },
   data () {
     return {
-      users: []
+      users: [],
+      columns: this.selectedColumns.split(',')
     };
   },
   mounted () {

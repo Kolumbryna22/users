@@ -5,6 +5,7 @@
         :search="false"
         :sorting="false"
         :pagination="false"
+        :selected-columns="'email,name,website,address.city,company.name'"
     />
   </div>
 </template>
