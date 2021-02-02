@@ -1,0 +1,44 @@
+.users {
+  h1 {
+    padding-bottom: 30px;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  thead {
+    &::after {
+      display: block;
+      line-height: 0px;
+      margin-bottom: 9px;
+      content: '';
+    }
+
+    tr {
+      background-color: $blue;
+      color: $text-secondary;
+    }
+  }
+
+  tbody {
+    font-weight: 300;
+
+    tr {
+      background-color: $body-bg;
+
+      &:nth-child(odd) {
+        background-color: rgba($blue, 0.15);
+      }
+    }
+  }
+
+  th,
+  td {
+    padding: 6px 10px;
+  }
+
+  th {
+    text-align: left;
+  }
+}

@@ -3,6 +3,20 @@
     <h1>
       Tabela z użytkownikami
     </h1>
+    <div class="input-container">
+      <input
+          id="awardId"
+          v-model="searchText"
+          name="awardDate"
+          type="text"
+          class="max-width"
+      >
+      <label
+          for="awardId"
+      >
+        Wyszukaj
+      </label>
+    </div>
     <table>
       <thead>
         <tr>
@@ -16,7 +30,7 @@
       </thead>
       <tbody>
         <tr
-            v-for="user in users"
+            v-for="user in filteredUsers"
             :key="user.id"
         >
           <td
@@ -49,7 +63,7 @@ class User {
       return this[keyArray[0]][keyArray[1]];
     }
 
-    return this.email;
+    return this[key];
   }
 }
 
@@ -92,8 +106,26 @@ export default {
   data () {
     return {
       users: [],
-      columns: this.selectedColumns.split(',')
+      columns: this.selectedColumns.split(','),
+      searchText: ''
     };
+  },
+  computed: {
+    filteredUsers () {
+      if (this.searchText !== '') {
+        const searchTerm = this.searchText.toLowerCase().trim();
+
+        return this.users.filter((user) => {
+          return (user.email !== null && user.email.toLowerCase().includes(searchTerm)) ||
+            (user.name !== null && user.name.toLowerCase().includes(searchTerm)) ||
+            (user.website !== null && user.website.toLowerCase().includes(searchTerm)) ||
+            (user.address.city !== null && user.address.city.toLowerCase().includes(searchTerm)) ||
+            (user.company.name !== null && user.company.name.toLowerCase().includes(searchTerm));
+        });
+      }
+
+      return this.users;
+    }
   },
   mounted () {
     const self = this;
