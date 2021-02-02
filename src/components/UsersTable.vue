@@ -129,7 +129,7 @@ export default {
   },
   computed: {
     filteredUsers () {
-      if (this.searchText !== '') {
+      if (this.searchText !== '' && this.search) {
         const searchTerm = this.searchText.toLowerCase().trim();
 
         return this.users.filter((user) => {
@@ -142,6 +142,13 @@ export default {
       }
 
       return this.users;
+    },
+    sortedUsers () {
+      if (this.sorting) {
+        return this.filteredUsers;
+      }
+
+      return this.filteredUsers;
     },
     paginatedUsers () {
       if (this.pagination) {
