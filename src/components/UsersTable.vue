@@ -132,7 +132,6 @@ export default {
 
     this.axios.get(this.endpoint)
       .then((res) => {
-        console.log(res);
         self.users = res.data.map(user => new User(user));
       })
       .catch((e) => {
