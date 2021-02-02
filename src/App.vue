@@ -4,7 +4,7 @@
         :endpoint="$store.state.api + '/users'"
         :search="false"
         :sorting="false"
-        :pagination="false"
+        :pagination="true"
         :selected-columns="'email,name,website,address.city,company.name'"
     />
   </div>

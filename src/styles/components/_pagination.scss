@@ -1,0 +1,97 @@
+.pagination {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.btn-paginate {
+  background-color: $text-primary;
+  color: $text-secondary;
+  border: 1px solid $text-primary;
+  box-shadow: 0px 3px 4px 0px rgba($text-primary, 0.3);
+  transition-duration: 0.3s;
+  padding: 7px 14px;
+  font-size: 19px;
+
+  .arrow-left,
+  .arrow-right {
+    &::after {
+      top: 36%;
+      right: 3px;
+    }
+  }
+
+  &:hover {
+    background-color: transparent;
+    color: $text-primary;
+
+    .arrow-left,
+    .arrow-right {
+      &::after {
+        border: solid $text-primary;
+        border-width: 0 3px 3px 0;
+      }
+    }
+  }
+
+  &:visited {
+    color: $text-secondary;
+  }
+}
+
+.btn-prev {
+  border-right: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.btn-next {
+  border-left: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.btn-paginate-active {
+  background-color: transparent;
+  color: $text-primary;
+  border: 1px solid $text-primary;
+
+  &:hover {
+    background-color: transparent;
+    color: $text-primary;
+  }
+}
+
+.arrow {
+  position: relative;
+  padding-right: 15px;
+
+  &:after {
+    position: absolute;
+    top: 45%;
+    right: 4px;
+    display: inline-block;
+    border: solid $text-secondary;
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    content: '';
+  }
+}
+
+.arrow-left {
+  @extend .arrow;
+
+  &::after {
+    transform: rotate(135deg);
+  }
+}
+
+.arrow-right {
+  @extend .arrow;
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+

@@ -1,4 +1,8 @@
 .users {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
   h1 {
     padding-bottom: 30px;
   }

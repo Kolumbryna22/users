@@ -10,11 +10,12 @@
           name="awardDate"
           type="text"
           class="max-width"
+          @input="currentPage = 1"
       >
       <label
           for="awardId"
       >
-        Wyszukaj
+        Szukaj
       </label>
     </div>
     <table>
@@ -30,7 +31,7 @@
       </thead>
       <tbody>
         <tr
-            v-for="user in filteredUsers"
+            v-for="user in paginatedUsers"
             :key="user.id"
         >
           <td
@@ -42,10 +43,18 @@
         </tr>
       </tbody>
     </table>
+    <Pagination
+        v-if="pagination"
+        :current-page="currentPage"
+        :pages="pages"
+        @updateCurrentPage="updateCurrentPage($event)"
+    />
   </div>
 </template>
 
 <script>
+import Pagination from './Pagination';
+
 class User {
   constructor (data) {
     this.id = data?.id || '';
@@ -81,6 +90,9 @@ class Company {
 
 export default {
   name: 'Users',
+  components: {
+    Pagination
+  },
   props: {
     endpoint: {
       type: String,
@@ -107,7 +119,9 @@ export default {
     return {
       users: [],
       columns: this.selectedColumns.split(','),
-      searchText: ''
+      searchText: '',
+      currentPage: 1,
+      itemsPerPage: 3
     };
   },
   computed: {
@@ -125,6 +139,16 @@ export default {
       }
 
       return this.users;
+    },
+    paginatedUsers () {
+      if (this.pagination) {
+        return this.filteredUsers.slice((this.currentPage - 1) * this.itemsPerPage, (this.currentPage - 1) * this.itemsPerPage + this.itemsPerPage);
+      }
+
+      return this.filteredUsers;
+    },
+    pages () {
+      return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
     }
   },
   mounted () {
@@ -137,6 +161,11 @@ export default {
       .catch((e) => {
         console.log(e);
       });
+  },
+  methods: {
+    updateCurrentPage (page) {
+      this.currentPage = page;
+    }
   }
 };
 </script>
