@@ -33,7 +33,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="paginatedUsers.length > 0">
         <tr
             v-for="user in paginatedUsers"
             :key="user.id"
@@ -47,6 +47,9 @@
         </tr>
       </tbody>
     </table>
+    <h3 v-if="paginatedUsers.length <= 0">
+      Brak użytkowników
+    </h3>
     <Pagination
         v-if="pagination"
         :current-page="currentPage"
