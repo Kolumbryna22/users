@@ -27,6 +27,7 @@
           <th
               v-for="column in columns"
               :key="column"
+              @click="sortKey = column, asc = !asc"
           >
             {{ column }}
           </th>
@@ -124,7 +125,9 @@ export default {
       columns: this.selectedColumns.split(','),
       searchText: '',
       currentPage: 1,
-      itemsPerPage: 3
+      itemsPerPage: 3,
+      sortKey: '',
+      asc: true
     };
   },
   computed: {
@@ -144,21 +147,51 @@ export default {
       return this.users;
     },
     sortedUsers () {
-      if (this.sorting) {
-        return this.filteredUsers;
+      let users = this.filteredUsers;
+
+      if (this.sorting && this.sortKey !== '') {
+        const keyArray = this.sortKey.split('.');
+
+        if (keyArray.length > 1) {
+          return users.sort((a, b) => {
+            if (a[keyArray[0]][keyArray[1]] < b[keyArray[0]][keyArray[1]]) {
+              return this.asc ? -1 : 1;
+            }
+
+            if (a[keyArray[0]][keyArray[1]] > b[keyArray[0]][keyArray[1]]) {
+              return this.asc ? 1 : -1;
+            }
+
+            return 0;
+          });
+        }
+
+        return users.sort((a, b) => {
+            if (a[keyArray[0]] < b[keyArray[0]]) {
+              return this.asc ? -1 : 1;
+            }
+
+            if (a[keyArray[0]] > b[keyArray[0]]) {
+              return this.asc ? 1 : -1;
+            }
+
+            return 0;
+          });
       }
 
-      return this.filteredUsers;
+      return users;
     },
     paginatedUsers () {
+      this.$emit('currentTableUsers', this.sortedUsers);
+
       if (this.pagination) {
-        return this.filteredUsers.slice((this.currentPage - 1) * this.itemsPerPage, (this.currentPage - 1) * this.itemsPerPage + this.itemsPerPage);
+        return this.sortedUsers.slice((this.currentPage - 1) * this.itemsPerPage, (this.currentPage - 1) * this.itemsPerPage + this.itemsPerPage);
       }
 
-      return this.filteredUsers;
+      return this.sortedUsers;
     },
     pages () {
-      return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+      return Math.ceil(this.sortedUsers.length / this.itemsPerPage);
     }
   },
   mounted () {

@@ -6,6 +6,7 @@
         :sorting="true"
         :pagination="true"
         :selected-columns="'email,name,website,address.city,company.name'"
+        @currentTableUsers="currentTableUsers($event)"
     />
   </div>
 </template>
@@ -17,6 +18,11 @@ export default {
   name: 'App',
   components: {
     UsersTable
+  },
+  methods: {
+    currentTableUsers (e) {
+      console.log(e);
+    }
   }
 };
 </script>

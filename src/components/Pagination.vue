@@ -32,7 +32,7 @@
       </button>
     </template>
     <template v-if="currentPage + 2 < pages">
-      <p>
+      <p class="dots">
         ...
       </p>
     </template>

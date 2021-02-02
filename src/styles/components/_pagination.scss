@@ -3,6 +3,11 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
+
+  .dots {
+    font-size: 25px;
+    padding: 0 7px;
+  }
 }
 
 .btn-paginate {
@@ -11,7 +16,7 @@
   border: 1px solid $text-primary;
   box-shadow: 0px 3px 4px 0px rgba($text-primary, 0.3);
   transition-duration: 0.3s;
-  padding: 7px 14px;
+  padding: 5px 11px;
   font-size: 19px;
 
   .arrow-left,
