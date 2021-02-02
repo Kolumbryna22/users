@@ -2,8 +2,8 @@
   <div id="app">
     <UsersTable
         :endpoint="$store.state.api + '/users'"
-        :search="false"
-        :sorting="false"
+        :search="true"
+        :sorting="true"
         :pagination="true"
         :selected-columns="'email,name,website,address.city,company.name'"
     />

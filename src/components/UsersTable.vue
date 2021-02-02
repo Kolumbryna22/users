@@ -3,7 +3,10 @@
     <h1>
       Tabela z użytkownikami
     </h1>
-    <div class="input-container">
+    <div
+        v-if="search"
+        class="input-container"
+    >
       <input
           id="awardId"
           v-model="searchText"
