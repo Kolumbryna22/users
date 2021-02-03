@@ -42,7 +42,14 @@
               v-for="column in columns"
               :key="column + user.id"
           >
-            {{ user.getValue(column) }}
+            <template v-if="column === 'email'">
+              <a :href="'mailto:' + user.getValue(column)">
+                {{ user.getValue(column) }}
+              </a>
+            </template>
+            <template v-else>
+              {{ user.getValue(column) }}
+            </template>
           </td>
         </tr>
       </tbody>
