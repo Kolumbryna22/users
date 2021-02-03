@@ -42,6 +42,9 @@
               v-for="column in columns"
               :key="column + user.id"
           >
+            <p class="title-responsive">
+              {{ column }}
+            </p>
             <template v-if="column === 'email'">
               <a :href="'mailto:' + user.getValue(column)">
                 {{ user.getValue(column) }}

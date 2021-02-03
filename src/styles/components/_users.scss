@@ -46,8 +46,36 @@
   th {
     text-align: left;
   }
+
+  .title-responsive {
+    display: none;
+  }
 }
 
-@media (max-wwidth: 800px) {
+@media (max-width: 700px) {
+  .users {
+    thead {
+      display: none;
+    }
 
+    tbody,
+    tr,
+    td {
+      display: block;
+    }
+
+    tbody {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    tr {
+      padding: 10px;
+    }
+
+    .title-responsive {
+      display: block;
+      font-weight: bold;
+    }
+  }
 }
